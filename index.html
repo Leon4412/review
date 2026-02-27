@@ -1706,6 +1706,21 @@ body.pdf-export .form-row.full {
     grid-template-columns: 1fr !important;
 }
 
+/* LKP section: compact spacing in PDF only */
+body.pdf-export #section-lkp .form-row.full {
+    margin-bottom: 16px !important;
+}
+body.pdf-export #section-lkp .form-group {
+    margin-bottom: 0 !important;
+}
+body.pdf-export #section-lkp label {
+    margin-bottom: 2px !important;
+}
+body.pdf-export #section-lkp input {
+    padding: 4px 8px !important;
+    height: 26px !important;
+}
+
 /* Таблицы — всегда как таблицы (иначе на телефоне превращаются в scroll-блоки) */
 body.pdf-export .inspection-table {
     display: table !important;
@@ -1908,7 +1923,7 @@ body.pdf-export .menu-overlay {
             </div>
 
             <!-- РАЗДЕЛ 2: ЗАМЕР ТОЛЩИНЫ ЛКП -->
-            <div class="section">
+            <div class="section" id="section-lkp">
                 <h2 class="section-title">2. ЗАМЕР ТОЛЩИНЫ ЛКП (МИКРОН)</h2>
 
                 <div class="form-row full">
@@ -2018,7 +2033,21 @@ body.pdf-export .menu-overlay {
 
                 <div class="form-row full">
                     <div class="form-group">
-                        <label>Крыло переднее правое</label>
+                        <label>Передняя правая дверь</label>
+                        <input type="text" class="lkp-field">
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label>Переднее правое крыло</label>
+                        <input type="text" class="lkp-field">
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label>Передняя правая стойка</label>
                         <input type="text" class="lkp-field">
                     </div>
                 </div>
@@ -3052,11 +3081,12 @@ body.pdf-export .menu-overlay {
                     // Секции 8 и 9 (рекомендации, резюме) - компактно
                     const hasCarDiagram = !!sec.querySelector('.car-diagram-container');
                     const isFirstSection = title.startsWith('1.');
+                    const isLKPSection = title.startsWith('2. ЗАМЕР');
                     const isCompactTail = title.startsWith('8.') || title.startsWith('9.');
 
                     blocks.push({
                         el: sec,
-                        forceNewPage: isFirstSection || hasCarDiagram,
+                        forceNewPage: isFirstSection || hasCarDiagram || isLKPSection,
                         spacing: 4
                     });
                 });
